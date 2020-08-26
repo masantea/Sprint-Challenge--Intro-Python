@@ -4,13 +4,13 @@
 import csv
 
 class City:
-  def _init_(self, name, lat, lon):
+  def __init__(self, name, lat, lon):
     self.name = name
     self.lat = lat
-    self.long = lon
+    self.lon = lon
   
   def __str__(self):
-    print(f'{self.name}, {self.lat}, {self.lon}')
+    return f"{self.name}, {self.lat}, {self.lon}"
 
 # We have a collection of US cities with population over 750,000 stored in the
 # file "cities.csv". (CSV stands for "comma-separated values".)
@@ -36,9 +36,11 @@ def cityreader(cities=[]):
     csv_reader = csv.DictReader(csv_file)
     line_count = 0
     for row in csv_reader:
-      if line_cout == 0:
-        print(f'\t{row[name]}, {row[lat]}, {row[lon]}', )
-    
+      if line_count == 0:
+        #print(row["city"]+","+row["lat"]+ ","+ row["lng"])
+        temp= City(row["city"],row["lat"], row["lng"])
+        cities.append(temp)
+
     return cities
 
 
@@ -58,7 +60,7 @@ for c in cities:
 # coordinate square.
 #
 # Be aware that the user could specify either a lower-left/upper-right pair of
-# coordinates, or an upper-left/lower-right pair of coordinates. Hint: normalize
+# coordinates, or an upper-left/lower-right pair of coordinates. Hint: normalize 
 # the input data so that it's always one or the other, then search for cities.
 # In the example below, inputting 32, -120 first and then 45, -100 should not
 # change the results of what the `cityreader_stretch` function returns.
